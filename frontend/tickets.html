@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Tickets | Support Center</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <div class="background-overlay"></div>
+
+    <div class="app">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+
+            <div class="logo-section">
+
+                <div class="logo">
+                    <img
+                        src="assets/logo.png"
+                        alt="Support Center Logo"
+                    >
+                </div>
+
+                <div>
+                    <h1>Support Center</h1>
+                    <p>Ticket Management</p>
+                </div>
+
+            </div>
+
+
+            <nav class="sidebar-nav">
+
+                <a href="index.html" class="nav-item">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="tickets.html" class="nav-item active">
+                    <i data-lucide="ticket"></i>
+                    <span>Tickets</span>
+                </a>
+
+                <a href="create-ticket.html" class="nav-item">
+                    <i data-lucide="plus-circle"></i>
+                    <span>Create Ticket</span>
+                </a>
+
+                <a href="#" class="nav-item">
+                    <i data-lucide="settings"></i>
+                    <span>Settings</span>
+                </a>
+
+            </nav>
+
+
+            <div class="sidebar-footer">
+                <p>Support Dashboard</p>
+                <span>v1.0</span>
+            </div>
+
+        </aside>
+
+
+        <!-- MAIN -->
+        <main class="main-content">
+
+            <!-- TOPBAR -->
+            <header class="topbar">
+
+                <button
+                    id="mobileMenuButton"
+                    class="mobile-menu"
+                >
+                    <i data-lucide="menu"></i>
+                </button>
+
+
+                <div>
+                    <p class="page-label">
+                        SUPPORT OPERATIONS
+                    </p>
+
+                    <h2>Tickets</h2>
+                </div>
+
+
+                <div class="topbar-actions">
+
+                    <button
+                        id="refreshButton"
+                        class="icon-button"
+                        title="Refresh tickets"
+                    >
+                        <i data-lucide="refresh-cw"></i>
+                    </button>
+
+
+                    <a
+                        href="create-ticket.html"
+                        class="create-button"
+                    >
+                        <i data-lucide="plus"></i>
+
+                        <span>New Ticket</span>
+                    </a>
+
+                </div>
+
+            </header>
+
+
+            <!-- CONTENT -->
+            <section class="dashboard">
+
+
+                <!-- PAGE INTRO -->
+                <div class="page-intro">
+
+                    <div>
+                        <p class="section-label">
+                            CUSTOMER SUPPORT
+                        </p>
+
+                        <h3>All Tickets</h3>
+
+                        <p>
+                            View and manage customer support requests.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <!-- TOOLBAR -->
+                <div class="ticket-toolbar">
+
+                    <!-- SEARCH -->
+                    <div class="search-box">
+
+                        <i data-lucide="search"></i>
+
+                        <input
+                            type="text"
+                            id="searchInput"
+                            placeholder="Search tickets..."
+                        >
+
+                    </div>
+
+
+                    <!-- STATUS FILTER -->
+                    <select id="statusFilter">
+
+                        <option value="all">
+                            All Statuses
+                        </option>
+
+                        <option value="open">
+                            Open
+                        </option>
+
+                        <option value="in_progress">
+                            In Progress
+                        </option>
+
+                        <option value="closed">
+                            Closed
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- CONTENT CARD -->
+                <div class="content-card">
+
+
+                    <!-- LOADING -->
+                    <div
+                        id="loadingState"
+                        class="state-message"
+                    >
+
+                        <div class="loading-spinner"></div>
+
+                        <p>
+                            Loading tickets...
+                        </p>
+
+                    </div>
+
+
+                    <!-- ERROR -->
+                    <div
+                        id="errorState"
+                        class="state-message error-state hidden"
+                    >
+
+                        <i data-lucide="triangle-alert"></i>
+
+                        <h4>
+                            Unable to load tickets
+                        </h4>
+
+                        <p id="errorMessage">
+                            Something went wrong.
+                        </p>
+
+                        <button id="retryButton">
+                            Try Again
+                        </button>
+
+                    </div>
+
+
+                    <!-- EMPTY -->
+                    <div
+                        id="emptyState"
+                        class="state-message hidden"
+                    >
+
+                        <i data-lucide="inbox"></i>
+
+                        <h4>
+                            No tickets found
+                        </h4>
+
+                        <p>
+                            There are currently no tickets to display.
+                        </p>
+
+                        <a
+                            href="create-ticket.html"
+                            class="create-button"
+                        >
+                            <i data-lucide="plus"></i>
+
+                            Create Ticket
+                        </a>
+
+                    </div>
+
+
+                    <!-- NO SEARCH RESULTS -->
+                    <div
+                        id="noResultsState"
+                        class="state-message hidden"
+                    >
+
+                        <i data-lucide="search-x"></i>
+
+                        <h4>
+                            No matching tickets
+                        </h4>
+
+                        <p>
+                            Try changing your search or filter.
+                        </p>
+
+                    </div>
+
+
+                    <!-- TABLE -->
+                    <div
+                        id="ticketsTableContainer"
+                        class="table-container hidden"
+                    >
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        ID
+                                    </th>
+
+                                    <th>
+                                        Title
+                                    </th>
+
+                                    <th>
+                                        Customer
+                                    </th>
+
+                                    <th>
+                                        Status
+                                    </th>
+
+                                    <th>
+                                        Created
+                                    </th>
+
+                                    <th>
+                                        Action
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody id="ticketsTable">
+
+                                <!-- Tickets inserted by JavaScript -->
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <script src="js/api.js"></script>
+
+    <script src="js/tickets.js"></script>
+
+    <script>
+        lucide.createIcons();
+    </script>
+
+</body>
+</html>

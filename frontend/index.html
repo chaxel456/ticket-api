@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Support Center</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Background -->
+    <div class="background-overlay"></div>
+
+    <div class="app">
+
+        <!-- =========================
+             SIDEBAR
+        ========================== -->
+        <aside class="sidebar">
+
+            <div class="logo-section">
+                <div class="logo">
+                    <img src="assets/logo.png" alt="Support Center Logo">
+                </div>
+
+                <div>
+                    <h1>Support Center</h1>
+                    <p>Ticket Management</p>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+
+                <a href="index.html" class="nav-item active">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="tickets.html" class="nav-item">
+                    <i data-lucide="ticket"></i>
+                    <span>Tickets</span>
+                </a>
+
+                <a href="create-ticket.html" class="nav-item">
+                    <i data-lucide="plus-circle"></i>
+                    <span>Create Ticket</span>
+                </a>
+
+                <a href="#" class="nav-item">
+                    <i data-lucide="settings"></i>
+                    <span>Settings</span>
+                </a>
+
+            </nav>
+
+            <div class="sidebar-footer">
+                <p>Support Dashboard</p>
+                <span>v1.0</span>
+            </div>
+
+        </aside>
+
+
+        <!-- =========================
+             MAIN CONTENT
+        ========================== -->
+        <main class="main-content">
+
+            <!-- TOP BAR -->
+            <header class="topbar">
+
+                <button id="mobileMenuButton" class="mobile-menu">
+                    <i data-lucide="menu"></i>
+                </button>
+
+                <div>
+                    <p class="page-label">Overview</p>
+                    <h2>Dashboard</h2>
+                </div>
+
+                <div class="topbar-actions">
+
+                    <button id="refreshButton" class="icon-button" title="Refresh">
+                        <i data-lucide="refresh-cw"></i>
+                    </button>
+
+                    <a href="create-ticket.html" class="create-button">
+                        <i data-lucide="plus"></i>
+                        <span>New Ticket</span>
+                    </a>
+
+                </div>
+
+            </header>
+
+
+            <!-- DASHBOARD -->
+            <section class="dashboard">
+
+                <!-- Welcome -->
+                <div class="welcome-card">
+
+                    <div>
+                        <p class="welcome-label">SUPPORT OPERATIONS</p>
+
+                        <h3>
+                            Welcome to your
+                            <span>Support Center</span>
+                        </h3>
+
+                        <p class="welcome-text">
+                            Manage customer support requests, track ticket
+                            status, and resolve issues from one place.
+                        </p>
+                    </div>
+
+                    <div class="welcome-icon">
+                        <i data-lucide="shield-check"></i>
+                    </div>
+
+                </div>
+
+
+                <!-- STAT CARDS -->
+                <div class="stats-grid">
+
+                    <!-- Total -->
+                    <div class="stat-card">
+
+                        <div class="stat-icon">
+                            <i data-lucide="ticket"></i>
+                        </div>
+
+                        <div>
+                            <p>Total Tickets</p>
+                            <h3 id="totalTickets">0</h3>
+                        </div>
+
+                    </div>
+
+
+                    <!-- Open -->
+                    <div class="stat-card">
+
+                        <div class="stat-icon">
+                            <i data-lucide="circle-dot"></i>
+                        </div>
+
+                        <div>
+                            <p>Open Tickets</p>
+                            <h3 id="openTickets">0</h3>
+                        </div>
+
+                    </div>
+
+
+                    <!-- Closed -->
+                    <div class="stat-card">
+
+                        <div class="stat-icon">
+                            <i data-lucide="circle-check"></i>
+                        </div>
+
+                        <div>
+                            <p>Closed Tickets</p>
+                            <h3 id="closedTickets">0</h3>
+                        </div>
+
+                    </div>
+
+
+                    <!-- Recent -->
+                    <div class="stat-card">
+
+                        <div class="stat-icon">
+                            <i data-lucide="clock-3"></i>
+                        </div>
+
+                        <div>
+                            <p>Recently Created</p>
+                            <h3 id="recentTickets">0</h3>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- RECENT TICKETS -->
+                <div class="content-card">
+
+                    <div class="card-header">
+
+                        <div>
+                            <p class="section-label">TICKET MANAGEMENT</p>
+                            <h3>Recent Tickets</h3>
+                        </div>
+
+                        <a href="tickets.html" class="view-all">
+                            View all
+                            <i data-lucide="arrow-right"></i>
+                        </a>
+
+                    </div>
+
+
+                    <!-- Loading -->
+                    <div id="loadingState" class="state-message">
+                        <div class="loading-spinner"></div>
+                        <p>Loading tickets...</p>
+                    </div>
+
+
+                    <!-- Error -->
+                    <div id="errorState" class="state-message error-state hidden">
+                        <i data-lucide="triangle-alert"></i>
+                        <p id="errorMessage">
+                            Unable to load tickets.
+                        </p>
+                        <button id="retryButton">
+                            Try Again
+                        </button>
+                    </div>
+
+
+                    <!-- Empty -->
+                    <div id="emptyState" class="state-message hidden">
+                        <i data-lucide="inbox"></i>
+                        <h4>No tickets yet</h4>
+                        <p>
+                            Create your first support ticket to get started.
+                        </p>
+
+                        <a href="create-ticket.html" class="create-button">
+                            <i data-lucide="plus"></i>
+                            Create Ticket
+                        </a>
+                    </div>
+
+
+                    <!-- Table -->
+                    <div id="ticketsTableContainer" class="table-container hidden">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Title</th>
+                                    <th>Customer</th>
+                                    <th>Status</th>
+                                    <th>Created</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="recentTicketsTable">
+                                <!-- JavaScript will insert tickets here -->
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <!-- JavaScript -->
+    <script src="js/api.js"></script>
+    <script src="js/dashboard.js"></script>
+
+    <script>
+        lucide.createIcons();
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Ticket | Support Center</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <div class="background-overlay"></div>
+
+    <div class="app">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+
+            <div class="logo-section">
+
+                <div class="logo">
+                    <img
+                        src="assets/logo.png"
+                        alt="Support Center Logo"
+                    >
+                </div>
+
+                <div>
+                    <h1>Support Center</h1>
+                    <p>Ticket Management</p>
+                </div>
+
+            </div>
+
+
+            <nav class="sidebar-nav">
+
+                <a href="index.html" class="nav-item">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="tickets.html" class="nav-item">
+                    <i data-lucide="ticket"></i>
+                    <span>Tickets</span>
+                </a>
+
+                <a
+                    href="create-ticket.html"
+                    class="nav-item active"
+                >
+                    <i data-lucide="plus-circle"></i>
+                    <span>Create Ticket</span>
+                </a>
+
+                <a href="#" class="nav-item">
+                    <i data-lucide="settings"></i>
+                    <span>Settings</span>
+                </a>
+
+            </nav>
+
+
+            <div class="sidebar-footer">
+                <p>Support Dashboard</p>
+                <span>v1.0</span>
+            </div>
+
+        </aside>
+
+
+        <!-- MAIN -->
+        <main class="main-content">
+
+            <!-- TOPBAR -->
+            <header class="topbar">
+
+                <button
+                    id="mobileMenuButton"
+                    class="mobile-menu"
+                >
+                    <i data-lucide="menu"></i>
+                </button>
+
+
+                <div>
+
+                    <p class="page-label">
+                        SUPPORT OPERATIONS
+                    </p>
+
+                    <h2>Create Ticket</h2>
+
+                </div>
+
+
+                <div class="topbar-actions">
+
+                    <a
+                        href="tickets.html"
+                        class="icon-button"
+                        title="Back to tickets"
+                    >
+                        <i data-lucide="arrow-left"></i>
+                    </a>
+
+                </div>
+
+            </header>
+
+
+            <!-- CONTENT -->
+            <section class="dashboard">
+
+                <div class="create-page">
+
+                    <!-- INTRO -->
+                    <div class="page-intro">
+
+                        <p class="section-label">
+                            NEW SUPPORT REQUEST
+                        </p>
+
+                        <h3>Create a Ticket</h3>
+
+                        <p>
+                            Create a new customer support request
+                            and add it to the ticket queue.
+                        </p>
+
+                    </div>
+
+
+                    <!-- FORM CARD -->
+                    <div class="content-card ticket-form-card">
+
+                        <form id="createTicketForm">
+
+                            <!-- TITLE -->
+                            <div class="form-group">
+
+                                <label for="title">
+                                    Ticket Title
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="title"
+                                    name="title"
+                                    placeholder="e.g. Unable to login"
+                                    required
+                                >
+
+                                <small>
+                                    Give the issue a short,
+                                    descriptive title.
+                                </small>
+
+                            </div>
+
+
+                            <!-- CUSTOMER -->
+                            <div class="form-group">
+
+                                <label for="customerName">
+                                    Customer Name
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="customerName"
+                                    name="customer_name"
+                                    placeholder="e.g. John Doe"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <!-- DESCRIPTION -->
+                            <div class="form-group">
+
+                                <label for="description">
+                                    Description
+                                </label>
+
+                                <textarea
+                                    id="description"
+                                    name="description"
+                                    rows="7"
+                                    placeholder="Describe the customer's issue..."
+                                    required
+                                ></textarea>
+
+                                <small>
+                                    Include enough information
+                                    for the support team to understand
+                                    the issue.
+                                </small>
+
+                            </div>
+
+
+                            <!-- FEEDBACK -->
+                            <div
+                                id="formMessage"
+                                class="form-message hidden"
+                            >
+                            </div>
+
+
+                            <!-- ACTIONS -->
+                            <div class="form-actions">
+
+                                <a
+                                    href="tickets.html"
+                                    class="secondary-button"
+                                >
+                                    Cancel
+                                </a>
+
+                                <button
+                                    type="submit"
+                                    id="submitButton"
+                                    class="create-button submit-ticket-button"
+                                >
+
+                                    <i data-lucide="plus"></i>
+
+                                    <span>
+                                        Create Ticket
+                                    </span>
+
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <script src="js/api.js"></script>
+    <script src="js/create-ticket.js"></script>
+
+    <script>
+        lucide.createIcons();
+    </script>
+
+</body>
+</html>

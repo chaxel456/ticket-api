@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Ticket Details | Support Desk</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Background -->
+    <div class="background-overlay"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+
+        <div class="sidebar-header">
+
+            <div class="logo-container">
+                <img src="assets/logo.png" alt="Support Desk Logo" class="logo-image">
+
+                <div>
+                    <h1 class="logo-title">Support Desk</h1>
+                    <p class="logo-subtitle">Ticket Management</p>
+                </div>
+            </div>
+
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <a href="index.html" class="nav-link">
+                <i data-lucide="layout-dashboard"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="tickets.html" class="nav-link active">
+                <i data-lucide="ticket"></i>
+                <span>Tickets</span>
+            </a>
+
+            <a href="create-ticket.html" class="nav-link">
+                <i data-lucide="plus-circle"></i>
+                <span>Create Ticket</span>
+            </a>
+
+            <a href="#" class="nav-link">
+                <i data-lucide="settings"></i>
+                <span>Settings</span>
+            </a>
+
+        </nav>
+
+        <div class="sidebar-footer">
+            <p>Support Desk</p>
+            <span>Ticket Management System</span>
+        </div>
+
+    </aside>
+
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <!-- Top Bar -->
+        <header class="topbar">
+
+            <div class="topbar-left">
+
+                <button
+                    class="mobile-menu-button"
+                    id="mobileMenuButton"
+                    aria-label="Open menu"
+                >
+                    <i data-lucide="menu"></i>
+                </button>
+
+                <div>
+                    <p class="topbar-label">Support Desk</p>
+                    <h2 class="topbar-title">Ticket Details</h2>
+                </div>
+
+            </div>
+
+            <div class="topbar-actions">
+
+                <button
+                    class="refresh-button"
+                    id="refreshButton"
+                    title="Refresh ticket"
+                >
+                    <i data-lucide="refresh-cw"></i>
+                    <span>Refresh</span>
+                </button>
+
+                <a href="create-ticket.html" class="create-ticket-button">
+                    <i data-lucide="plus"></i>
+                    <span>New Ticket</span>
+                </a>
+
+            </div>
+
+        </header>
+
+
+        <!-- Page Content -->
+        <section class="page-content">
+
+            <!-- Loading -->
+            <div id="loadingState" class="state-container">
+
+                <div class="loading-spinner"></div>
+
+                <h3>Loading ticket...</h3>
+
+                <p>
+                    Please wait while we retrieve the ticket information.
+                </p>
+
+            </div>
+
+
+            <!-- Error -->
+            <div id="errorState" class="state-container hidden">
+
+                <div class="state-icon error-icon">
+                    <i data-lucide="alert-circle"></i>
+                </div>
+
+                <h3>Unable to load ticket</h3>
+
+                <p id="errorMessage">
+                    Something went wrong.
+                </p>
+
+                <div class="state-actions">
+
+                    <button
+                        id="retryButton"
+                        class="primary-state-button"
+                    >
+                        <i data-lucide="refresh-cw"></i>
+                        Try Again
+                    </button>
+
+                    <a
+                        href="tickets.html"
+                        class="secondary-state-button"
+                    >
+                        Back to Tickets
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- Ticket Details -->
+            <div id="ticketContent" class="ticket-details-page hidden">
+
+                <!-- Page Header -->
+                <div class="ticket-details-header">
+
+                    <div>
+
+                        <a
+                            href="tickets.html"
+                            class="back-link"
+                        >
+                            <i data-lucide="arrow-left"></i>
+                            Back to Tickets
+                        </a>
+
+                        <div class="ticket-title-section">
+
+                            <div>
+                                <p class="ticket-id-label">
+                                    Ticket #<span id="ticketId"></span>
+                                </p>
+
+                                <h1 id="ticketTitle">
+                                    Ticket Title
+                                </h1>
+                            </div>
+
+                            <span
+                                id="ticketStatusBadge"
+                                class="status-badge status-open"
+                            >
+                                Open
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Ticket Information -->
+                <div class="ticket-details-grid">
+
+                    <!-- Main Ticket -->
+                    <div class="ticket-main-card">
+
+                        <div class="detail-card-header">
+
+                            <div>
+                                <h2>Ticket Information</h2>
+                                <p>Details provided by the customer.</p>
+                            </div>
+
+                            <i data-lucide="file-text"></i>
+
+                        </div>
+
+
+                        <div class="ticket-description-section">
+
+                            <h3>Description</h3>
+
+                            <p id="ticketDescription">
+                                No description available.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Ticket Metadata -->
+                    <div class="ticket-side-card">
+
+                        <div class="detail-card-header">
+
+                            <div>
+                                <h2>Customer</h2>
+                                <p>Customer information.</p>
+                            </div>
+
+                            <i data-lucide="user"></i>
+
+                        </div>
+
+
+                        <div class="customer-information">
+
+                            <div class="customer-avatar">
+                                <i data-lucide="user"></i>
+                            </div>
+
+                            <div>
+                                <h3 id="customerName">
+                                    Unknown Customer
+                                </h3>
+
+                                <p>Customer</p>
+                            </div>
+
+                        </div>
+
+
+                        <div class="metadata-list">
+
+                            <div class="metadata-item">
+
+                                <span>
+                                    <i data-lucide="hash"></i>
+                                    Ticket ID
+                                </span>
+
+                                <strong id="metadataTicketId">
+                                    -
+                                </strong>
+
+                            </div>
+
+
+                            <div class="metadata-item">
+
+                                <span>
+                                    <i data-lucide="calendar"></i>
+                                    Created
+                                </span>
+
+                                <strong id="ticketCreated">
+                                    -
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Actions -->
+                <div class="ticket-actions-card">
+
+                    <div class="detail-card-header">
+
+                        <div>
+                            <h2>Ticket Actions</h2>
+                            <p>Update or remove this ticket.</p>
+                        </div>
+
+                        <i data-lucide="settings-2"></i>
+
+                    </div>
+
+
+                    <div class="ticket-actions-content">
+
+                        <!-- Status -->
+                        <div class="status-update-section">
+
+                            <label for="statusSelect">
+                                Ticket Status
+                            </label>
+
+                            <div class="status-control">
+
+                                <select id="statusSelect">
+
+                                    <option value="open">
+                                        Open
+                                    </option>
+
+                                    <option value="in_progress">
+                                        In Progress
+                                    </option>
+
+                                    <option value="closed">
+                                        Closed
+                                    </option>
+
+                                </select>
+
+                                <button
+                                    id="updateStatusButton"
+                                    class="primary-action-button"
+                                >
+                                    <i data-lucide="save"></i>
+                                    Update Status
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Delete -->
+                        <div class="delete-section">
+
+                            <div>
+
+                                <h3>Delete Ticket</h3>
+
+                                <p>
+                                    Permanently remove this ticket from
+                                    the system.
+                                </p>
+
+                            </div>
+
+                            <button
+                                id="deleteButton"
+                                class="delete-ticket-button"
+                            >
+                                <i data-lucide="trash-2"></i>
+                                Delete Ticket
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Action Message -->
+                <div
+                    id="actionMessage"
+                    class="form-message hidden"
+                ></div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- JavaScript -->
+    <script src="js/api.js"></script>
+    <script src="js/ticket.js"></script>
+
+    <script>
+        lucide.createIcons();
+    </script>
+
+</body>
+</html>
